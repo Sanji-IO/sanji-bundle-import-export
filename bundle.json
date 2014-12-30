@@ -1,22 +1,22 @@
 {
   "name": "import_export",
   "version": "1.0",
-  "author": "Zack YL Shih",
-  "email": "ZackYL.Shih@moxa.com",
-  "description": "System time management.",
+  "author": "ChinFu Yang",
+  "email": "ChinFu.Yang@moxa.com",
+  "description": "Import/Export configuration files.",
   "license": "MOXA",
-  "main": "index.py",
+  "main": "import_export.py",
   "argument": "",
   "priority": 20,
   "hook": [],
   "dependencies": {},
-  "repository": "git@github.com:Sanji-IO/sanji-time.git",
+  "repository": "git@github.com:Sanji-IO/sanji-import-export.git",
   "ttl": 60,
   "role": "model",
   "resources": [
     {
-      "methods": "get",
-      "resource": "/sanji/bundles"
+      "methods": ["get", "put"],
+      "resource": "/system/importexport"
     }
   ]
 }
