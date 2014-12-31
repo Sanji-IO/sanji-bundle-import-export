@@ -1,0 +1,22 @@
+{
+  "name": "import_export",
+  "version": "1.0",
+  "author": "ChinFu Yang",
+  "email": "ChinFu.Yang@moxa.com",
+  "description": "Import/Export configuration files.",
+  "license": "MOXA",
+  "main": "import_export.py",
+  "argument": "",
+  "priority": 20,
+  "hook": [],
+  "dependencies": {},
+  "repository": "git@github.com:Sanji-IO/sanji-import-export.git",
+  "ttl": 60,
+  "role": "model",
+  "resources": [
+    {
+      "methods": ["get", "put"],
+      "resource": "/system/importexport"
+    }
+  ]
+}
