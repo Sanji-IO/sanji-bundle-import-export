@@ -15,8 +15,30 @@
   "role": "model",
   "resources": [
     {
-      "methods": ["get", "put"],
-      "resource": "/system/importexport"
+      "methods": "get",
+      "uri": "/system/importexport/download",
+      "downloadFile": {
+          "limits": {
+            "fileSize": 268435456
+          },
+        "ramdisk": true,
+        "path": "/",
+        "filename": "export.tar"
+      }
+    },
+    {
+      "methods": "put",
+      "uri": "/system/importexport",
+      "uploadFile": {
+          "limits": {
+            "fileSize": 268435456
+          },
+        "allowedFiles": [
+          "export.tar"
+        ],
+        "ramdisk": true,
+        "path": "/"
+      }
     }
   ]
 }
