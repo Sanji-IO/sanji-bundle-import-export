@@ -1,11 +1,11 @@
 {
-  "name": "import_export",
-  "version": "1.0",
-  "author": "ChinFu Yang",
-  "email": "ChinFu.Yang@moxa.com",
+  "name": "ImportExport",
+  "version": "1.0.0",
+  "author": "Zack YL Shih",
+  "email": "ZackYL.Shih@moxa.com",
   "description": "Import/Export configuration files.",
   "license": "MOXA",
-  "main": "import_export.py",
+  "main": "index.py",
   "argument": "",
   "priority": 20,
   "hook": [],
@@ -15,30 +15,12 @@
   "role": "model",
   "resources": [
     {
-      "methods": "get",
-      "uri": "/system/importexport/download",
-      "downloadFile": {
-          "limits": {
-            "fileSize": 268435456
-          },
-        "ramdisk": true,
-        "path": "/",
-        "filename": "export.tar"
-      }
+      "methods": "post",
+      "resource": "/system/export"
     },
     {
       "methods": "put",
-      "uri": "/system/importexport",
-      "uploadFile": {
-          "limits": {
-            "fileSize": 268435456
-          },
-        "allowedFiles": [
-          "export.tar"
-        ],
-        "ramdisk": true,
-        "path": "/"
-      }
+      "resource": "/system/import"
     }
   ]
 }
