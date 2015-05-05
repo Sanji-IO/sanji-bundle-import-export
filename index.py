@@ -17,32 +17,65 @@ from sanji.connection.mqtt import Mqtt
 logger = logging.getLogger()
 
 
+def download(url, output):
+    r = requests.get(url, stream=True)
+    chunk_size = 1024
+
+    if r.status_code != requests.codes.ok:
+        return False
+
+    with open(output, 'wb') as fd:
+        for chunk in r.iter_content(chunk_size):
+            fd.write(chunk)
+
+    return True
+
+
 class Index(Sanji):
     def init(self, *args, **kwargs):
         self.path_root = os.path.abspath(os.path.dirname(__file__))
 
     @Route(methods="post", resource="/system/export")
     def post(self, message, response):
+        headers = message.data.get("headers", {})
         (output, filelist) = importexport.export_data()
         r = requests.post(
             message.data["url"],
             files={output: open(output, "rb")},
+            headers=headers,
             verify=False)
+
+        if r.status_code != requests.codes.ok:
+            return response(code=500, data={"message": "Can't upload config."})
+
         resp = r.json()
+        if "url" not in resp:
+            return response(
+                code=500, data={"message": "Can't get file link."})
 
-        response(data={"url": resp["url"]})
+        return response(data={"url": resp["url"]})
 
-    # @Route(methods="put", resource="/system/import")
-    # def put(self, message, response):
-    #     # reboot system to apply new configuration files.
-    #     thread_id = threading.Thread(target=self.reboot_thread)
-    #     thread_id.daemon = True
-    #     thread_id.start()
+    @Route(methods="put", resource="/system/import")
+    def put(self, message, response):
+        import_file = "/tmp/import"
+        headers = message.data.get("headers", {})
 
-    # def reboot_thread(self):
-    #     time.sleep(5)   # Wait 5 seconds. Web need to transfer to main page.
-    #     cmd = 'reboot'
-    #     subprocess.call(cmd, shell=True)
+        r = requests.get(
+            message.data["file"]["url"],
+            stream=True,
+            headers=headers,
+            verify=False)
+        chunk_size = 1024
+
+        if r.status_code != requests.codes.ok:
+            return response(data={message: "Can't download firmware."})
+
+        with open(import_file, 'wb') as fd:
+            for chunk in r.iter_content(chunk_size):
+                fd.write(chunk)
+
+        importexport.import_data(path="/run/shm", input_file=import_file)
+        return response({})
 
 
 if __name__ == '__main__':
