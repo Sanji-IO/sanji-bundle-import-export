@@ -3,12 +3,8 @@
 
 import logging
 import os
-import subprocess
-import time
-import threading
 import importexport
 import requests
-import json
 
 from sanji.core import Sanji
 from sanji.core import Route
@@ -37,8 +33,8 @@ class Index(Sanji):
 
     @Route(methods="post", resource="/system/export")
     def post(self, message, response):
-        headers = message.data.get("headers", {})
         (output, filelist) = importexport.export_data()
+        headers = message.data.get("headers", {})
         r = requests.post(
             message.data["url"],
             files={output: open(output, "rb")},
@@ -46,7 +42,9 @@ class Index(Sanji):
             verify=False)
 
         if r.status_code != requests.codes.ok:
-            return response(code=500, data={"message": "Can't upload config."})
+            return response(
+                code=r.status_code,
+                data={"message": "Can't upload config."})
 
         resp = r.json()
         if "url" not in resp:
@@ -57,8 +55,8 @@ class Index(Sanji):
 
     @Route(methods="put", resource="/system/import")
     def put(self, message, response):
-        import_file = "/tmp/import"
-        headers = message.data.get("headers", {})
+        import_file = "/tmp/import.tar.gz"
+        headers = message.data["headers"].get("headers", {})
 
         r = requests.get(
             message.data["file"]["url"],
@@ -68,14 +66,24 @@ class Index(Sanji):
         chunk_size = 1024
 
         if r.status_code != requests.codes.ok:
-            return response(data={message: "Can't download firmware."})
+            return response(
+                code=r.status_code,
+                data={"message": "Can't download firmware."})
 
         with open(import_file, 'wb') as fd:
             for chunk in r.iter_content(chunk_size):
                 fd.write(chunk)
 
-        importexport.import_data(path="/run/shm", input_file=import_file)
-        return response({})
+        try:
+            importexport.import_data(
+                path=os.getenv("IMPORT_PATH", '/'),
+                input_file=import_file)
+        except Exception, e:
+            logging.error(e, exc_info=True)
+            return response(
+                code=500, data={"message": "Import failed.", "log": e.message})
+
+        return response()
 
 
 if __name__ == '__main__':
