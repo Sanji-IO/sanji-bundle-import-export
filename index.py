@@ -56,7 +56,7 @@ class Index(Sanji):
     @Route(methods="put", resource="/system/import")
     def put(self, message, response):
         import_file = "/tmp/import.tar.gz"
-        headers = message.data["headers"].get("headers", {})
+        headers = message.data["file"].get("headers", {})
 
         r = requests.get(
             message.data["file"]["url"],
@@ -89,7 +89,7 @@ class Index(Sanji):
 if __name__ == '__main__':
     FORMAT = '%(asctime)s - %(levelname)s - %(lineno)s - %(message)s'
     logging.basicConfig(level=0, format=FORMAT)
-    logger = logging.getLogger("importexport")
+    logger = logging.getLogger("sanji.importexport")
 
     import_export = Index(connection=Mqtt())
     import_export.start()
