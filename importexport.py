@@ -7,7 +7,7 @@ import tarfile
 import datetime
 import logging
 
-logger = logging.getLogger()
+_logger = logging.getLogger("sanji.importexport")
 
 
 def get_bundle_data_filelist(bundle_root):
@@ -37,7 +37,7 @@ def tar_files(filelist, output):
     """
     with tarfile.open(output, "w:gz") as tar:
         for name in filelist:
-            logger.debug("Packing %s" % (name))
+            _logger.debug("Packing %s" % (name))
             tar.add(name)
 
     return output
@@ -50,7 +50,7 @@ def export_data(output="/run/shm/export-%s.tar.gz" %
     Exclude *.factory, *.backup
     return (output path, filelist)
     """
-    bundles_home = os.getenv("BUNDLES_HOME", "/opt/moxa/bundles")
+    bundles_home = os.getenv("BUNDLES_HOME", "/usr/lib/sanji-1.0")
     collectedFiles = []
     for bundle_data_path in get_all_bundles(bundles_home):
         collectedFiles += get_bundle_data_filelist(bundle_data_path)
@@ -67,6 +67,7 @@ def import_data(path="/", input_file=""):
         tar.extractall(path)
         members = tar.getmembers()
         for m in members:
+            _logger.debug("Unpacking %s" % (m.name))
             filelist.append(m.name)
 
     return filelist
