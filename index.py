@@ -11,6 +11,12 @@ from sanji.core import Sanji
 from sanji.core import Route
 from sanji.connection.mqtt import Mqtt
 
+from voluptuous import Schema
+from voluptuous import Required
+from voluptuous import REMOVE_EXTRA
+from voluptuous import All
+from voluptuous import Length
+
 _logger = logging.getLogger("sanji.importexport")
 
 
@@ -29,10 +35,20 @@ def download(url, output):
 
 
 class Index(Sanji):
+
+    EXPORT_SCHEMA = Schema({
+        Required("url"): All(str, Length(1, 4096)),
+        "headers": {}
+    }, extra=REMOVE_EXTRA)
+
+    IMPORT_SCHEMA = Schema({
+        Required("file"): EXPORT_SCHEMA
+    }, extra=REMOVE_EXTRA)
+
     def init(self, *args, **kwargs):
         self.path_root = os.path.abspath(os.path.dirname(__file__))
 
-    @Route(methods="post", resource="/system/export")
+    @Route(methods="post", resource="/system/export", schema=EXPORT_SCHEMA)
     def post(self, message, response):
         (output, filelist) = importexport.export_data()
         headers = message.data.get("headers", {})
@@ -54,7 +70,7 @@ class Index(Sanji):
 
         return response(data={"url": resp["url"]})
 
-    @Route(methods="put", resource="/system/import")
+    @Route(methods="put", resource="/system/import", schema=IMPORT_SCHEMA)
     def put(self, message, response):
         import_file = "/tmp/import.tar.gz"
         headers = message.data["file"].get("headers", {})
