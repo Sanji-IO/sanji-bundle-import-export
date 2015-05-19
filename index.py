@@ -5,7 +5,8 @@ import logging
 import os
 import importexport
 import requests
-
+import subprocess
+from time import sleep
 from sanji.core import Sanji
 from sanji.core import Route
 from sanji.connection.mqtt import Mqtt
@@ -83,7 +84,9 @@ class Index(Sanji):
             return response(
                 code=500, data={"message": "Import failed.", "log": e.message})
 
-        return response()
+        response()
+        sleep(3)
+        subprocess.call("reboot")
 
 
 if __name__ == '__main__':
