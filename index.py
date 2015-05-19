@@ -11,7 +11,7 @@ from sanji.core import Sanji
 from sanji.core import Route
 from sanji.connection.mqtt import Mqtt
 
-logger = logging.getLogger()
+_logger = logging.getLogger("sanji.importexport")
 
 
 def download(url, output):
@@ -80,7 +80,7 @@ class Index(Sanji):
                 path=os.getenv("IMPORT_PATH", '/'),
                 input_file=import_file)
         except Exception, e:
-            logging.error(e, exc_info=True)
+            _logger.error(e, exc_info=True)
             return response(
                 code=500, data={"message": "Import failed.", "log": e.message})
 
@@ -92,7 +92,7 @@ class Index(Sanji):
 if __name__ == '__main__':
     FORMAT = '%(asctime)s - %(levelname)s - %(lineno)s - %(message)s'
     logging.basicConfig(level=0, format=FORMAT)
-    logger = logging.getLogger("sanji.importexport")
+    _logger = logging.getLogger("sanji.importexport")
 
     import_export = Index(connection=Mqtt())
     import_export.start()
