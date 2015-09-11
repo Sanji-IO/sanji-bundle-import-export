@@ -8,9 +8,9 @@ import unittest
 import logging
 
 from sanji.connection.mockup import Mockup
-from sanji.message import Message
+# from sanji.message import Message
 from mock import patch
-from mock import Mock
+# from mock import Mock
 
 logger = logging.getLogger()
 
@@ -23,6 +23,7 @@ except ImportError as e:
     exit(1)
 
 export_file = "/run/shm/export.tar"
+
 
 class TestImportExportClass(unittest.TestCase):
     file_folder = "/run/shm/test_import_export"
@@ -62,13 +63,10 @@ class TestImportExportClass(unittest.TestCase):
     def test_put(self):
         # case 1: message donsn't has data attribute
 
-
         # case 2: put success
         # case 2.1: ssh start success
 
-
         # case 2.2: ssh stop success
-
 
         # case 3: put failed
         # case 3.1: ssh start failed
