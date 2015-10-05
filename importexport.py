@@ -37,6 +37,8 @@ def tar_files(filelist, output):
     """
     with tarfile.open(output, "w:gz") as tar:
         for name in filelist:
+            if not os.path.exists(name):
+                continue
             _logger.debug("Packing %s" % (name))
             tar.add(name)
 
@@ -46,14 +48,18 @@ def tar_files(filelist, output):
 def export_data(output="/run/shm/export-%s.tar.gz" %
                 (datetime.datetime.now().strftime("%Y%m%d%H%M"))):
     """
-    Collect all BUNDLES_HOME/{bundles}/data/*
-    Exclude *.factory, *.backup
+    Collect all BUNDLES_HOME/{bundles}/data/* exclude *.factory, *.backup.
+    Web database should be included.
     return (output path, filelist)
     """
     bundles_home = os.getenv("BUNDLES_HOME", "/usr/lib/sanji-1.0")
     collectedFiles = []
     for bundle_data_path in get_all_bundles(bundles_home):
         collectedFiles += get_bundle_data_filelist(bundle_data_path)
+
+    # FIXME: use configuration file to include extra backup files
+    collectedFiles.append("/var/www/webapp/server/webapp.db")
+    collectedFiles.append("/var/www/webapp/public/assets/images/users")
 
     return (output, tar_files(collectedFiles, output))
 
