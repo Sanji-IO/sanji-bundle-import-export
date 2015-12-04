@@ -155,7 +155,7 @@ class HTTPError(Exception):
 
 
 def import_from_http(
-     url, headers={}, bundle_names=[], tmpfile="/tmp/upgrade.download"):
+        url, headers={}, bundle_names=[], tmpfile="/tmp/upgrade.download"):
     r = requests.get(
         url=url,
         stream=True,
@@ -177,10 +177,10 @@ def import_from_http(
 def export_to_http(url, headers={}):
     (output, filelist) = export_data()
     r = requests.post(
-       url=url,
-       files={output: open(output, "rb")},
-       headers=headers,
-       verify=False
+        url=url,
+        files={output: open(output, "rb")},
+        headers=headers,
+        verify=False
     )
 
     if r.status_code != requests.codes.ok:
