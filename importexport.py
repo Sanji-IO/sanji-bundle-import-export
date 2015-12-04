@@ -101,7 +101,7 @@ def import_data(path="/", input_file="", bundle_names=[], delete=True):
                        if filename_filter(tarinfo.name, bundle_names)]
             if len(tar.getmembers()) != len(members):
                 _logger.info("Some import files have been omitted.")
-            tar.extractall("/tmp/import", members)
+            tar.extractall(path, members)
             filelist = [m.name for m in members]
     except Exception as e:
         _logger.error(str(e))
