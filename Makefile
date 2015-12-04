@@ -16,16 +16,25 @@ TARGET_FILES = \
 	bundle.json \
 	requirements.txt \
 	index.py \
-	importexport.py
+	importexport.py \
+	config/scopes.json
 DIST_FILES= \
 	$(TARGET_FILES) \
 	README.md \
 	Makefile \
 	tests/requirements.txt \
-	tests/test.py \
-	tests/test_import_export.py \
-	tests/test_e2e/bundle.json \
-	tests/test_e2e/view_import_export.py
+	tests/test_importexport.py \
+	tests/requirements.txt \
+	tests/test_importexport.py \
+	tests/mock_bundles_root/mock_bundle_1/bundle.json \
+	tests/mock_bundles_root/mock_bundle_2/bundle.json \
+	tests/mock_bundles_root/mock_bundle_1/data/test.json \
+	tests/mock_bundles_root/mock_bundle_2/data/test.json \
+	tests/mock_bundles_root/mock_bundle_1/data/test.json.backup \
+	tests/mock_bundles_root/mock_bundle_2/data/test.json.backup \
+	tests/mock_bundles_root/mock_bundle_1/data/test.json.factory \
+	tests/mock_bundles_root/mock_bundle_2/data/test.json.factory
+
 INSTALL_FILES=$(addprefix $(INSTALL_DIR)/,$(TARGET_FILES))
 STAGING_FILES=$(addprefix $(PROJECT_STAGING_DIR)/,$(DIST_FILES))
 
@@ -42,7 +51,7 @@ distclean: clean
 pylint:
 	flake8 -v --exclude=.git,__init__.py .
 test:
-	nosetests --with-coverage --cover-erase --cover-package=import-export -v
+	nosetests --with-coverage --cover-erase --cover-package=importexport -v
 
 dist: $(ARCHIVE)
 
