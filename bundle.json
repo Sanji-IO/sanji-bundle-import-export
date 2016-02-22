@@ -1,6 +1,6 @@
 {
   "name": "import-export",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": "Zack YL Shih",
   "email": "ZackYL.Shih@moxa.com",
   "description": "Import/Export configuration files.",

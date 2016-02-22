@@ -77,7 +77,7 @@ class Index(Sanji):
         if scopes is None:
             return response(code=400, data={"message": "scopes is required."})
 
-        bundle_names = self.scopes_dict["__system__"]
+        bundle_names = []
         for scope in scopes:
             if scope not in self.scopes_dict:
                 continue
