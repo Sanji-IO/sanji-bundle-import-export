@@ -126,9 +126,10 @@ def filename_filter(filename, bundle_names=[]):
     filename = "/%s" % filename
 
     def _filename_filter():
-        for fn in _WEBAPP_FILE_LIST:
-            if filename.find(fn) != -1:
-                return True
+        if "webapp" in bundle_names or len(bundle_names) == 0:
+            for fn in _WEBAPP_FILE_LIST:
+                if filename.find(fn) != -1:
+                    return True
 
         if len(bundle_names) == 0:
             if filename.startswith(_SANJI_BUNDLE_PREFIX):
