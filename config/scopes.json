@@ -8,5 +8,5 @@
     "dhcpd": ["dhcpd"],
     "serial": ["serial"],
     "portforwarding": ["iptables", "portforwarding"],
-    "__system__": ["bootstrap", "service", "status", "firmware", "route"]
+    "system": ["bootstrap", "service", "status", "firmware", "route", "webapp"]
 }
