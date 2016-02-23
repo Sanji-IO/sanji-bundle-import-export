@@ -1,0 +1,68 @@
+swagger: '2.0'
+
+info:
+  title: Import / Export system settings
+  description: Export system settings to a compressed file or Import from previous exported file
+  version: '0.0.1'
+
+schemes:
+- http
+- https
+
+produces:
+- application/json
+
+paths:
+  /system/import:
+    put:
+      description: Put a download url with headers and import settings
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/UrlInfo'
+
+  /system/export:
+    post:
+      description: Post a target url with headers, bundle would upload to target url and return download url
+      responses:
+        200:
+          description: sucess
+          schema:
+            $ref: '#/definitions/UrlInfo'
+          examples:
+            {
+              "application/json": {
+                "url": "https://www.google.com"
+              }
+            }
+
+definitions:
+ UrlInfo:
+  description: Url information
+  type: object
+  required:
+  - url
+  properties:
+    url:
+      description: Url address
+      type: string
+      minLength: 1
+      maxLength: 4096
+    headers:
+      description: Headers
+      type: object
+  example:
+    $ref: '#/externalDocs/x-mocks/UrlInfoExample'
+
+
+externalDocs:
+  url: '#'
+  x-mocks:
+    UrlInfoExample:
+      {
+        "url": "https://server/upload",
+        "headers": {
+          "accessToken": "MOXAMOXA-TEST-SYSTEM"
+        }
+      }
