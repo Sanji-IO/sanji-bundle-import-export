@@ -15,6 +15,12 @@ produces:
 paths:
   /system/import:
     put:
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UrlInfo'
       description: Put a download url with headers and import settings
       responses:
         200:
@@ -24,6 +30,12 @@ paths:
 
   /system/export:
     post:
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UrlInfo'
       description: Post a target url with headers, bundle would upload to target url and return download url
       responses:
         200:
