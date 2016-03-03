@@ -1,3 +1,9 @@
+sanji-bundle-import-export (1.1.1-1) unstable; urgency=low
+
+  * Fix wrong schema.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Thu, 03 Mar 2016 17:21:04 +0800
+
 sanji-bundle-import-export (1.1.0-1) unstable; urgency=low
 
   * Change default import policy.
