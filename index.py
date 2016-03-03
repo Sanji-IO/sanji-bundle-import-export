@@ -42,7 +42,7 @@ class Index(Sanji):
 
     EXPORT_SCHEMA = Schema({
         Required("url"): All(str, Length(1, 4096)),
-        "headers": {}
+        "headers": dict
     }, extra=REMOVE_EXTRA)
 
     IMPORT_SCHEMA = Schema({
