@@ -46,7 +46,8 @@ class Index(Sanji):
     }, extra=REMOVE_EXTRA)
 
     IMPORT_SCHEMA = Schema({
-        Required("file"): EXPORT_SCHEMA
+        Required("file"): EXPORT_SCHEMA,
+        "scopes": list
     }, extra=REMOVE_EXTRA)
 
     def init(self, *args, **kwargs):
