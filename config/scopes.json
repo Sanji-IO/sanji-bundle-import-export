@@ -1,5 +1,5 @@
 {
-    "modbus": ["modbus", "logprofile"],
+    "modbus": ["modbus", "logprofile", "custom-equipment"],
     "relay": ["relay"],
     "time": ["time"],
     "dns": ["dns"],
