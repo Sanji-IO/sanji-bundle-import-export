@@ -1,3 +1,9 @@
+sanji-bundle-import-export (1.2.2-1) unstable; urgency=low
+
+  * Add custom-equipment in scopes.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Fri, 18 Mar 2016 15:59:40 +0800
+
 sanji-bundle-import-export (1.1.2-1) unstable; urgency=low
 
   * Fix wrong schema.
