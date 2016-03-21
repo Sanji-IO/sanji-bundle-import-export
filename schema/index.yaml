@@ -73,7 +73,7 @@ externalDocs:
   x-mocks:
     UrlInfoExample:
       {
-        "url": "https://server/upload",
+        "url": "https://localhost/api/v1/files/upload",
         "headers": {
           "accessToken": "MOXAMOXA-TEST-SYSTEM"
         }
