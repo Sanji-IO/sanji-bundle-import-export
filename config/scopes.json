@@ -5,6 +5,7 @@
     "dns": ["dns"],
     "ethernet": ["ethernet"],
     "cellular": ["cellular"],
+    "openvpn": ["openvpn"],
     "dhcpd": ["dhcpd"],
     "serial": ["serial"],
     "portforwarding": ["iptables", "portforwarding"],
