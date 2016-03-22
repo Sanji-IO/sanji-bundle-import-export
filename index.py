@@ -3,9 +3,9 @@
 
 import logging
 import os
-import importexport
 import requests
 import subprocess
+import json
 from time import sleep
 from sanji.core import Sanji
 from sanji.core import Route
@@ -16,6 +16,10 @@ from voluptuous import Required
 from voluptuous import REMOVE_EXTRA
 from voluptuous import All
 from voluptuous import Length
+
+from importexport import import_from_http
+from importexport import export_to_http
+from importexport import HTTPError
 
 _logger = logging.getLogger("sanji.importexport")
 
@@ -38,67 +42,62 @@ class Index(Sanji):
 
     EXPORT_SCHEMA = Schema({
         Required("url"): All(str, Length(1, 4096)),
-        "headers": {}
+        "headers": dict
     }, extra=REMOVE_EXTRA)
 
     IMPORT_SCHEMA = Schema({
-        Required("file"): EXPORT_SCHEMA
+        Required("file"): EXPORT_SCHEMA,
+        "scopes": list
     }, extra=REMOVE_EXTRA)
 
     def init(self, *args, **kwargs):
         self.path_root = os.path.abspath(os.path.dirname(__file__))
+        with open(os.path.join(self.path_root, "config", "scopes.json")) as f:
+            self.scopes_dict = json.load(f)
 
     @Route(methods="post", resource="/system/export", schema=EXPORT_SCHEMA)
     def post(self, message, response):
-        (output, filelist) = importexport.export_data()
         headers = message.data.get("headers", {})
-        r = requests.post(
-            message.data["url"],
-            files={output: open(output, "rb")},
-            headers=headers,
-            verify=False)
-
-        if r.status_code != requests.codes.ok:
-            return response(
-                code=r.status_code,
-                data={"message": "Can't upload config."})
-
-        resp = r.json()
-        if "url" not in resp:
-            return response(
-                code=500, data={"message": "Can't get file link."})
-
-        return response(data={"url": resp["url"]})
+        try:
+            url = export_to_http(
+                url=message.data["url"],
+                headers=headers)
+            return response(data={"url": url})
+        except HTTPError as he:
+            _logger.error("Export to http error: %s" % str(he))
+            return response(code=500, data={"message": str(he)})
+        except Exception as e:
+            _logger.error("Export to http error")
+            _logger.error(str(e))
+            raise e
 
     @Route(methods="put", resource="/system/import", schema=IMPORT_SCHEMA)
     def put(self, message, response):
-        import_file = "/tmp/import.tar.gz"
         headers = message.data["file"].get("headers", {})
+        scopes = message.data.get("scopes", None)
+        if scopes is None:
+            return response(code=400, data={"message": "scopes is required."})
 
-        r = requests.get(
-            message.data["file"]["url"],
-            stream=True,
-            headers=headers,
-            verify=False)
-        chunk_size = 1024
+        bundle_names = []
+        for scope in scopes:
+            if scope not in self.scopes_dict:
+                continue
+            bundle_names = bundle_names + self.scopes_dict[scope]
 
-        if r.status_code != requests.codes.ok:
-            return response(
-                code=r.status_code,
-                data={"message": "Can't download firmware."})
-
-        with open(import_file, 'wb') as fd:
-            for chunk in r.iter_content(chunk_size):
-                fd.write(chunk)
-
+        _logger.info("Import bundles: %s" % ", ".join(bundle_names))
         try:
-            importexport.import_data(
-                path=os.getenv("IMPORT_PATH", '/'),
-                input_file=import_file)
-        except Exception, e:
-            _logger.error(e, exc_info=True)
-            return response(
-                code=500, data={"message": "Import failed.", "log": e.message})
+            import_from_http(
+                url=message.data["file"]["url"],
+                headers=headers,
+                bundle_names=bundle_names)
+            _logger.info("Imported. Ready to reboot...")
+        except HTTPError as he:
+            _logger.error("Import from http error: %s" % str(he))
+            return response(code=500, data={"message": str(he)})
+        except Exception as e:
+            _logger.error("Import from http error")
+            _logger.error(str(e))
+            return response(code=500, data={"message": "Import failed."})
 
         response()
         sleep(3)

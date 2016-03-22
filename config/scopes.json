@@ -1,0 +1,12 @@
+{
+    "modbus": ["modbus", "logprofile"],
+    "relay": ["relay"],
+    "time": ["time"],
+    "dns": ["dns"],
+    "ethernet": ["ethernet"],
+    "cellular": ["cellular"],
+    "dhcpd": ["dhcpd"],
+    "serial": ["serial"],
+    "portforwarding": ["iptables", "portforwarding"],
+    "system": ["bootstrap", "service", "status", "firmware", "route", "webapp"]
+}
