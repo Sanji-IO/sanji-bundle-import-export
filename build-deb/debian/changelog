@@ -1,0 +1,17 @@
+sanji-bundle-import-export (0.9.2-1) unstable; urgency=low
+
+  * Add webapp's database and account images.
+
+ -- Aeluin Chen <aeluin.chen@moxa.com>  Mon, 05 Oct 2015 13:52:32 +0800
+
+sanji-bundle-import-export (0.9.1-1) unstable; urgency=low
+
+  * build-deb/ added for building Debian package.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Thu, 10 Sep 2015 18:36:47 +0800
+
+sanji-bundle-import-export (0.9.1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Thu, 10 Sep 2015 15:31:14 +0800
