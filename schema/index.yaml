@@ -21,7 +21,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/UrlInfo'
-      description: Put a download url with headers and import settings
+      description: >
+        Put a download url with headers and import settings.
+        For more information, please check out tutorial documents about API Endpoint with files.
       responses:
         200:
           description: success
@@ -36,7 +38,17 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/UrlInfo'
-      description: Post a target url with headers, bundle would upload to target url and return download url
+      description: >
+        Post a target url with headers, bundle would upload to target url and return download url.
+        Target upload server should response in this json format:
+        <pre>
+          {
+            "fieldname": "file",
+            "url": "/api/v1/files/download/61256ff7db8b7b40e254b940ae639b8e"
+          }
+        </pre>
+        ThingsPro has a built-in simple upload server which is already used by web. In general cases, using the built-in server is highly recommended. Request export to simple upload server with url: `https://localhost/api/v1/files/upload`
+        For more information, please check out tutorial documents about API Endpoint with files.
       responses:
         200:
           description: sucess
@@ -45,7 +57,7 @@ paths:
           examples:
             {
               "application/json": {
-                "url": "https://www.google.com"
+                "url": "https://localhost/api/v1/files/upload"
               }
             }
 
