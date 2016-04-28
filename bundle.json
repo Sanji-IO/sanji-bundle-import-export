@@ -3,7 +3,7 @@
   "version": "1.3.2",
   "author": "Zack YL Shih",
   "email": "ZackYL.Shih@moxa.com",
-  "description": "Import/Export configuration files.",
+  "description": "Manages the import/export of configuration files",
   "license": "MOXA",
   "main": "index.py",
   "argument": "",
