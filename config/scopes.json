@@ -1,6 +1,5 @@
 {
-    "modbus": ["modbus", "logprofile", "custom-equipment"],
-    "relay": ["relay"],
+    "modbus": ["modbus", "logprofile", "custom-equipment", "modbusslave"],
     "time": ["time"],
     "dns": ["dns"],
     "ethernet": ["ethernet"],
@@ -9,5 +8,7 @@
     "dhcpd": ["dhcpd"],
     "serial": ["serial"],
     "portforwarding": ["iptables", "portforwarding"],
+    "remotecontrol": ["remotecontrol"],
+    "applications": ["azure", "modbusawsiot", "mqtt"],
     "system": ["bootstrap", "service", "status", "firmware", "route", "webapp"]
 }
