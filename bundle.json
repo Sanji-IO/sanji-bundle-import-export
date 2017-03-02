@@ -1,6 +1,6 @@
 {
   "name": "import-export",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "author": "Zack YL Shih",
   "email": "ZackYL.Shih@moxa.com",
   "description": "Manages the import/export of configuration files",
@@ -11,7 +11,7 @@
   "hook": [],
   "dependencies": {},
   "repository": "git@github.com:Sanji-IO/sanji-import-export.git",
-  "ttl": 60,
+  "ttl": 120,
   "role": "model",
   "resources": [
     {
