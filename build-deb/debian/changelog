@@ -1,3 +1,9 @@
+sanji-bundle-import-export (1.5.0-1) unstable; urgency=low
+
+  * feat: add missing scope.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Thu, 02 Mar 2017 11:30:04 +0800
+
 sanji-bundle-import-export (1.4.0-1) unstable; urgency=low
 
   * feat: update scopes.
