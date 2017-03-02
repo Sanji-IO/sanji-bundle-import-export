@@ -11,7 +11,7 @@
   "hook": [],
   "dependencies": {},
   "repository": "git@github.com:Sanji-IO/sanji-import-export.git",
-  "ttl": 60,
+  "ttl": 120,
   "role": "model",
   "resources": [
     {
