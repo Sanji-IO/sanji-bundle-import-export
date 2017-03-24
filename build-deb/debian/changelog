@@ -1,3 +1,9 @@
+sanji-bundle-import-export (1.5.2-1) unstable; urgency=low
+
+  * fix: no scopes should just response.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Fri, 24 Mar 2017 10:41:15 +0800
+
 sanji-bundle-import-export (1.5.1-1) unstable; urgency=low
 
   * refactor: extend ttl from 60 to 120.
