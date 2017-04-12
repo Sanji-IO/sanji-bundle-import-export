@@ -10,6 +10,6 @@
     "portforwarding": ["iptables", "portforwarding"],
     "remotecontrol": ["remotecontrol"],
     "program": ["program"],
-    "applications": ["azure", "modbusawsiot", "mqtt"],
+    "applications": ["sparkplug", "modbusawsiot", "mqtt"],
     "system": ["bootstrap", "service", "status", "firmware", "route", "webapp"]
 }
