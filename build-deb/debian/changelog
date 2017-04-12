@@ -1,3 +1,9 @@
+sanji-bundle-import-export (1.5.3-1) unstable; urgency=low
+
+  * feat: update scopes.json .
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Wed, 12 Apr 2017 15:20:57 +0800
+
 sanji-bundle-import-export (1.5.2-1) unstable; urgency=low
 
   * fix: no scopes should just response.
