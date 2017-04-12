@@ -20,15 +20,13 @@ paths:
         in: body
         required: true
         schema:
-          $ref: '#/definitions/UrlInfo'
+          $ref: '#/definitions/ImportInfo'
       description: >
         Put a download url with headers and import settings.
         For more information, please check out tutorial documents about API Endpoint with files.
       responses:
         200:
           description: success
-          schema:
-            $ref: '#/definitions/UrlInfo'
 
   /system/export:
     post:
@@ -62,31 +60,71 @@ paths:
             }
 
 definitions:
- UrlInfo:
-  description: Url information
-  type: object
-  required:
-  - url
-  properties:
-    url:
-      description: Url address
-      type: string
-      minLength: 1
-      maxLength: 4096
-    headers:
-      description: Headers
-      type: object
-  example:
-    $ref: '#/externalDocs/x-mocks/UrlInfoExample'
+  UrlInfo:
+    description: Url information
+    type: object
+    required:
+    - url
+    properties:
+      url:
+        description: Url address
+        type: string
+        minLength: 1
+        maxLength: 4096
+      headers:
+        description: Headers
+        type: object
+    example:
+      $ref: '#/externalDocs/x-mocks/UrlInfoExample'
 
+  ImportInfo:
+    description: Import information
+    type: object
+    required:
+    - scopes
+    - file
+    properties:
+      file:
+        $ref: '#/definitions/UrlInfo'
+      scopes:
+        description: Import scopes (only selected scopes' configuration will be imported)
+        type: array
+        items:
+          type: string
+          enum:
+          - modbus
+          - time
+          - dns
+          - ethernet
+          - cellular
+          - openvpn
+          - dhcpd
+          - serial
+          - portforwarding
+          - remotecontrol
+          - program
+          - applications
+          - system
 
 externalDocs:
   url: '#'
   x-mocks:
     UrlInfoExample:
       {
-        "url": "https://localhost/api/v1/files/upload",
+        "url": "http://remoteserver/api/v1/files/upload",
         "headers": {
           "accessToken": "MOXAMOXA-TEST-SYSTEM"
         }
       }
+
+    ImportInfoExample:
+      {
+        "scopes": ["cellular", "time"],
+        "file": {
+          "url": "http://remoteserver/download/export.tar.gz",
+          "headers": {
+            "accessToken": "MOXAMOXA-TEST-SYSTEM"
+          }
+        }
+      }
+
