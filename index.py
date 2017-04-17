@@ -78,6 +78,10 @@ class Index(Sanji):
         if scopes is None:
             return response(code=400, data={"message": "scopes is required."})
 
+        if len(scopes) == 0:
+            # No any scopes need to be imported
+            return response(data={"message": "no selected scopes."})
+
         bundle_names = []
         for scope in scopes:
             if scope not in self.scopes_dict:

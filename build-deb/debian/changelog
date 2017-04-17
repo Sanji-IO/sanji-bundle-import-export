@@ -1,8 +1,51 @@
-sanji-bundle-import-export (1.1.1+1-1) unstable; urgency=low
+sanji-bundle-import-export (1.5.3-1) unstable; urgency=low
+
+  * feat: update scopes.json .
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Wed, 12 Apr 2017 15:20:57 +0800
+
+sanji-bundle-import-export (1.5.2-1) unstable; urgency=low
+
+  * fix: no scopes should just response.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Fri, 24 Mar 2017 10:41:15 +0800
+
+sanji-bundle-import-export (1.5.1-1) unstable; urgency=low
+
+  * refactor: extend ttl from 60 to 120.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Thu, 02 Mar 2017 11:34:19 +0800
+
+sanji-bundle-import-export (1.5.0-1) unstable; urgency=low
+
+  * feat: add missing scope.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Thu, 02 Mar 2017 11:30:04 +0800
+
+sanji-bundle-import-export (1.4.0-1) unstable; urgency=low
+
+  * feat: update scopes.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Wed, 01 Mar 2017 11:44:05 +0800
+
+sanji-bundle-import-export (1.3.2-1) unstable; urgency=low
+
+  * Add OpenVPN in scopes.
+  * Update schema
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Mon, 21 Mar 2016 13:22:44 +0800
+
+sanji-bundle-import-export (1.2.2-1) unstable; urgency=low
+
+  * Add custom-equipment in scopes.
+
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Fri, 18 Mar 2016 15:59:40 +0800
+
+sanji-bundle-import-export (1.1.2-1) unstable; urgency=low
 
   * Fix wrong schema.
 
- -- Zack YL Shih <ZackYL.Shih@moxa.com>  Fri, 04 Mar 2016 10:58:29 +0800
+ -- Zack YL Shih <ZackYL.Shih@moxa.com>  Fri, 04 Mar 2016 10:56:39 +0800
 
 sanji-bundle-import-export (1.1.1-1) unstable; urgency=low
 

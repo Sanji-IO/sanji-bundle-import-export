@@ -1,12 +1,15 @@
 {
-    "modbus": ["modbus", "logprofile"],
-    "relay": ["relay"],
+    "modbus": ["modbus", "logprofile", "custom-equipment", "modbusslave"],
     "time": ["time"],
     "dns": ["dns"],
     "ethernet": ["ethernet"],
     "cellular": ["cellular"],
+    "openvpn": ["openvpn"],
     "dhcpd": ["dhcpd"],
     "serial": ["serial"],
     "portforwarding": ["iptables", "portforwarding"],
+    "remotecontrol": ["remotecontrol"],
+    "program": ["program"],
+    "applications": ["sparkplug", "modbusawsiot", "mqtt"],
     "system": ["bootstrap", "service", "status", "firmware", "route", "webapp"]
 }

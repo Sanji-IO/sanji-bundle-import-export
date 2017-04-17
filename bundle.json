@@ -1,9 +1,9 @@
 {
   "name": "import-export",
-  "version": "1.1.1+1",
+  "version": "1.5.3",
   "author": "Zack YL Shih",
   "email": "ZackYL.Shih@moxa.com",
-  "description": "Import/Export configuration files.",
+  "description": "Manages the import/export of configuration files",
   "license": "MOXA",
   "main": "index.py",
   "argument": "",
@@ -11,7 +11,7 @@
   "hook": [],
   "dependencies": {},
   "repository": "git@github.com:Sanji-IO/sanji-import-export.git",
-  "ttl": 60,
+  "ttl": 120,
   "role": "model",
   "resources": [
     {
